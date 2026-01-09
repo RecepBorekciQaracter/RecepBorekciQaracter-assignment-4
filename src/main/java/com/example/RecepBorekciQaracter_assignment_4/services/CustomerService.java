@@ -17,9 +17,9 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id) {
-        return customers.stream() // Streams through the task list
-                .filter(task -> task.getId().equals(id)) // Filters tasks by ID
-                .findFirst() // Returns the first match (if any)
+        return customers.stream()
+                .filter(customer -> customer.getId().equals(id))
+                .findFirst()
                 .orElse(null);
     }
 
