@@ -1,6 +1,7 @@
 package com.example.RecepBorekciQaracter_assignment_4.services;
 
 import com.example.RecepBorekciQaracter_assignment_4.entities.SupportTicket;
+import com.example.RecepBorekciQaracter_assignment_4.exceptions.EmployeeNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,13 @@ public class SupportTicketService {
     }
 
     public SupportTicket assignTicket(Long id, String assignedTo) {
+        List<String> validEmployees = List.of("Support Team", "Admin", "Technician");
+
+        if (!validEmployees.contains(assignedTo)) {
+            throw new EmployeeNotFoundException(
+                    "Employee not found: " + assignedTo
+            );
+        }
         SupportTicket ticket = getTicketById(id);
 
         if (ticket == null) {

@@ -2,6 +2,7 @@ package com.example.RecepBorekciQaracter_assignment_4.services;
 
 import com.example.RecepBorekciQaracter_assignment_4.entities.Appointment;
 import com.example.RecepBorekciQaracter_assignment_4.entities.Customer;
+import com.example.RecepBorekciQaracter_assignment_4.exceptions.InvalidAppointmentException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,20 @@ public class AppointmentService {
     }
 
     public Appointment createAppointment(Appointment appointment) {
+        boolean slotTaken = appointments.stream()
+                .anyMatch(a -> a.getDateTime().equals(appointment.getDateTime()));
+
+        if (slotTaken) {
+            throw new InvalidAppointmentException(
+                    "Appointment slot is not available: " + appointment.getDateTime()
+            );
+        }
+
         appointment.setId(this.nextId++);
         appointments.add(appointment);
         return appointment;
     }
+
 
     public List<Appointment> getAppointmentsByCustomer(Long customerId) {
         return appointments.stream()
