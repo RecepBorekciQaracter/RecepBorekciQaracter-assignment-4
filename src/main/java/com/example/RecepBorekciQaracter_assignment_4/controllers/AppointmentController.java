@@ -32,7 +32,7 @@ public class AppointmentController {
         return appointmentService.createAppointment(appointment);
     }
 
-    @GetMapping("/{customer_id}")
+    @GetMapping("/customers/{customer_id}")
     public List<Appointment> getAppointmentsByCustomer(@PathVariable Long customer_id) {
         return appointmentService.getAppointmentsByCustomer(customer_id);
     }
