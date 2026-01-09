@@ -1,6 +1,7 @@
 package com.example.RecepBorekciQaracter_assignment_4.services;
 
 import com.example.RecepBorekciQaracter_assignment_4.entities.Customer;
+import com.example.RecepBorekciQaracter_assignment_4.exceptions.CustomerNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,9 @@ public class CustomerService {
         return customers.stream()
                 .filter(customer -> customer.getId().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() ->
+                        new CustomerNotFoundException("Customer not found with id: " + id)
+                );
     }
 
     public Customer createCustomer(Customer customer) {
